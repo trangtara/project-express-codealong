@@ -26,14 +26,13 @@ app.get('/nominations', (req, res) => {
 
 app.get('/year/:year', (req, res) => {
   const year = req.params.year
-  const showWon = req.query.won
-  const showLose = req.query.lose
+  const wonParam = req.query.won
+
   let yearFilter = data.filter((movie) => movie.year_award === +year)
 
-  if (showWon) {
-    yearFilter = yearFilter.filter((movie) => movie.win)
-  }
-  if (showLose) {
+  if (wonParam === 'true') {
+    yearFilter = yearFilter.filter((movie) => movie.win === true)
+  } else if (wonParam === 'false') {
     yearFilter = yearFilter.filter((movie) => movie.win === false)
   }
 
